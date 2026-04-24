@@ -39,7 +39,7 @@ def test_2_size_df_chunker():
     for chunk in chunks:
         i += len(chunk)
         if i < count:
-            assert len(chunk) >= 2, "Срез должен быть больше или равен 2"
+            assert len(chunk) >= 2, "Чанк должен быть больше или равен 2"
 # тест на деление по чанкам на 5 строк
 def test_5_size_df_chunker():
     df = src.df_generator.get_initial_dataframe()
@@ -49,7 +49,7 @@ def test_5_size_df_chunker():
     for chunk in chunks:
         i += len(chunk)
         if i < count:
-            assert len(chunk) >= 5, "Срез должен быть больше или равен 5"
+            assert len(chunk) >= 5, "Чанк должен быть больше или равен 5"
 # тест на деление по чанкам на 10 строк
 def test_10_size_df_chunker():
     df = src.df_generator.get_initial_dataframe()
@@ -59,7 +59,7 @@ def test_10_size_df_chunker():
     for chunk in chunks:
         i += len(chunk)
         if i < count:
-            assert len(chunk) >= 10, "Срез должен быть больше или равен 10"
+            assert len(chunk) >= 10, "Чанк должен быть больше или равен 10"
 # тест на то, что если размер чанка < размеров исходной последовательности, то чанк = фрейму
 def test_big_count():
     df = src.df_generator.get_initial_dataframe(shuffle=False)
