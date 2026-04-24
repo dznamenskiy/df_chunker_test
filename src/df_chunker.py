@@ -4,6 +4,9 @@ import numpy as np
 CHUNK_SIZE = 5
 
 def get_chunks(df, key, chunk_size=CHUNK_SIZE):
+    if chunk_size <= 0:
+        raise ValueError("CHUNK_SIZE должен быть > 0")
+
     start = 0
     df.set_index(key, drop=False, inplace=True)
     df = df.sort_index()

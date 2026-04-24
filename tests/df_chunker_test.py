@@ -5,6 +5,16 @@ import numpy as np
 import src
 
 # берем рандомный датафрейм от 40 до 200 строк
+# тест на пустой датафрейм
+def test_empty_dataframe():
+    df = pd.DataFrame(columns=['dt'])
+    chunks = list(src.df_chunker.get_chunks(df, 'dt'))
+    assert len(chunks) == 0, "Пустой DataFrame должен возвращать 0 чанков"
+# тест на chunk_size = 0
+def test_empty_dataframe():
+    with pytest.raises(ValueError):
+        df = src.df_generator.get_initial_dataframe()
+        chunks = list(src.df_chunker.get_chunks(df, 'dt', chunk_size=0))
 # тест на то, что выходное количество строк исходного датафрейма и чанков совпадает
 def test_rows_count():
     df = src.df_generator.get_initial_dataframe()
@@ -50,6 +60,13 @@ def test_10_size_df_chunker():
         i += len(chunk)
         if i < count:
             assert len(chunk) >= 10, "Срез должен быть больше или равен 10"
+# тест на то, что если размер чанка < размеров исходной последовательности, то чанк = фрейму
+def test_big_count():
+    df = src.df_generator.get_initial_dataframe(shuffle=False)
+    count = len(df)
+    chunks = src.df_chunker.get_chunks(df, 'dt', chunk_size=count+1)
+    for chunk in chunks:
+        assert chunk.equals(df), "Чанк должен быть один и совпадать с исходным датафреймом"
 # тест на то, что нет пересечений дат между чанками
 def test_dates_inside_df_chunker():
     unique_dates = []
