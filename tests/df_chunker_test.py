@@ -12,9 +12,10 @@ def test_empty_dataframe():
     assert len(chunks) == 0, "Пустой DataFrame должен возвращать 0 чанков"
 # тест на chunk_size = 0
 def test_zero_chunk_size():
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError) as exinfo:
         df = src.df_generator.get_initial_dataframe()
         chunks = list(src.df_chunker.get_chunks(df, 'dt', chunk_size=0))
+    assert exinfo.type is ValueError, "При CHUNK_SIZE=0 должна быть выдана ошибка ValueError"
 # тест на то, что выходное количество строк исходного датафрейма и чанков совпадает
 def test_rows_count():
     df = src.df_generator.get_initial_dataframe()
