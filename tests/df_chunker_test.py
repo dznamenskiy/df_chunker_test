@@ -11,7 +11,7 @@ def test_empty_dataframe():
     chunks = list(src.df_chunker.get_chunks(df, 'dt'))
     assert len(chunks) == 0, "Пустой DataFrame должен возвращать 0 чанков"
 # тест на chunk_size = 0
-def test_empty_dataframe():
+def test_empty_chunk_size():
     with pytest.raises(ValueError):
         df = src.df_generator.get_initial_dataframe()
         chunks = list(src.df_chunker.get_chunks(df, 'dt', chunk_size=0))
